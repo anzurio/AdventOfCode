@@ -16,8 +16,8 @@ namespace AdventOfCode2018
 
         private static void FillTheStarsAlignSampleInput()
         {
-            var input = @"
-position=< 9,  1> velocity=< 0,  2>
+            var input =
+@"position=< 9,  1> velocity=< 0,  2>
 position=< 7,  0> velocity=<-1,  0>
 position=< 3, -2> velocity=<-1,  1>
 position=< 6, 10> velocity=<-2, -1>

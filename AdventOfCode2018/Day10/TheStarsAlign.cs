@@ -26,7 +26,10 @@ namespace AdventOfCode2018.Day10
         public void Solve(OutputStream os)
         {
             var minimumNightSky = GetMinimumArea();
-            Print(os, minimumNightSky);
+            using (var openedStream = os.Open())
+            {
+                Print(openedStream, minimumNightSky);
+            }
         }
 
         private void Print(OutputStream os, IEnumerable<(int X, int Y)> points)
@@ -68,7 +71,7 @@ namespace AdventOfCode2018.Day10
                 else
                 {
                     currentNightSky = nextNightSky;
-                    nextArea = currentArea;
+                    currentArea = nextArea;
                 }
             }
         }

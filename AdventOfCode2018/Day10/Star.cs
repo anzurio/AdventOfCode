@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AdventOfCode2018.Day10
+﻿namespace AdventOfCode2018.Day10
 {
-    public class Star
+    public sealed class Star
     {
         public int X { get; private set; }
         public int Y { get; private set; }
@@ -18,5 +14,7 @@ namespace AdventOfCode2018.Day10
             DX = dx;
             DY = dy;
         }
+
+        public (int X, int Y) this[int dt] => (X + (dt * DX), Y + (dt * DY));
     }
 }

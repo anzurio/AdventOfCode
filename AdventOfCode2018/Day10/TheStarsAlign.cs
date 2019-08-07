@@ -25,7 +25,7 @@ namespace AdventOfCode2018.Day10
 
         public void Solve(OutputStream os)
         {
-            var minimumNightSky = GetDtMinimumArea();
+            var minimumNightSky = GetMinimumArea();
             Print(os, minimumNightSky);
         }
 
@@ -35,22 +35,27 @@ namespace AdventOfCode2018.Day10
             throw new NotImplementedException();
         }
 
-        private IEnumerable<(int X, int Y)> GetDtMinimumArea()
+        private IEnumerable<(int X, int Y)> GetMinimumArea()
         {
+            int dt = 0;
+            var currentNightSky = NightSky[dt];
+            var currentArea = GetArea(currentNightSky);
             // FIX Potential infinite loop
-            /*while (true)
+            while (true)
             {
-                var nextNightSky = NightSky[dt + 1];
+                var nextNightSky = NightSky[++dt];
                 var nextArea = GetArea(nextNightSky);
+                // FIX If T+1 instead of decreasing, increases, this will return the first one.
                 if (nextArea > currentArea)
                 {
-                    return minimumNightSky;
+                    return currentNightSky;
                 }
                 else
                 {
-                    dt++;
+                    currentNightSky = nextNightSky;
+                    nextArea = currentArea;
                 }
-            }*/
+            }
         }
 
         private int GetArea(IEnumerable<(int X, int Y)> points)

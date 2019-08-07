@@ -29,6 +29,8 @@ namespace AdventOfCode2018.Day03
             using (var openedStream = os.Open())
             {
                 os.Write(Fabric.GetOverlappedSquareInches());
+                os.WriteNewLine();
+                os.Write(Fabric.GetUnoverlappingClaim());
             }
         }
     }

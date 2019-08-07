@@ -7,6 +7,7 @@ namespace AdventOfCode2018.Day03
 {
     public class Fabric
     {
+        private List<int> ClaimIds = new List<int>();
         private List<Claim>[,] Claims = new List<Claim>[1000,1000];
 
         public Fabric()
@@ -16,6 +17,7 @@ namespace AdventOfCode2018.Day03
 
         public void Add(Claim claim)
         {
+            ClaimIds.Add(claim.Id);
             for (int i = claim.Left; i < claim.Left + claim.Width; i++)
             {
                 for (int j = claim.Top; j < claim.Top + claim.Height; j++)
@@ -45,6 +47,25 @@ namespace AdventOfCode2018.Day03
                 }
             }
             return overlappedSquareInches;
+        }
+
+        public int GetUnoverlappingClaim()
+        {
+            HashSet<int> overlappingClaims = new HashSet<int>();
+
+            foreach (var claimsInSquareInch in Claims)
+            {
+                if (claimsInSquareInch != null && claimsInSquareInch.Count > 1)
+                {
+                    foreach(var claim in claimsInSquareInch)
+                    {
+                        overlappingClaims.Add(claim.Id);
+                    }
+                }
+            }
+            ClaimIds.RemoveAll(x => overlappingClaims.Contains(x));
+
+            return ClaimIds.First();
         }
     }
 }

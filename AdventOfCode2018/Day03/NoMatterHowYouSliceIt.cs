@@ -6,7 +6,7 @@ namespace AdventOfCode2018.Day03
 {
     public class NoMatterHowYouSliceIt : ISolver
     {
-        private List<Claim> Claims { get; set; } = new List<Claim>();
+        private Fabric Fabric { get; set; } = new Fabric();
 
         public void ParseInput(IEnumerable<string> inputStream)
         {
@@ -15,7 +15,7 @@ namespace AdventOfCode2018.Day03
             foreach (var line in inputStream)
             {
                 var match = regAutomaton.Match(line);
-                Claims.Add(new Claim(
+                Fabric.Add(new Claim(
                         int.Parse(match.Groups[1].Value),
                         int.Parse(match.Groups[2].Value),
                         int.Parse(match.Groups[3].Value),
@@ -26,7 +26,10 @@ namespace AdventOfCode2018.Day03
 
         public void Solve(OutputStream os)
         {
-            throw new NotImplementedException();
+            using (var openedStream = os.Open())
+            {
+                os.Write(Fabric.GetOverlappedSquareInches());
+            }
         }
     }
 }

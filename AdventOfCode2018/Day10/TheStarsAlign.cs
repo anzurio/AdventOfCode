@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace AdventOfCode2018.Day10
@@ -29,10 +29,25 @@ namespace AdventOfCode2018.Day10
             Print(os, minimumNightSky);
         }
 
-        private void Print(OutputStream os, IEnumerable<(int X, int Y)> enumerable)
+        private void Print(OutputStream os, IEnumerable<(int X, int Y)> points)
         {
-            var bounds = GetBounds(enumerable);
-            throw new NotImplementedException();
+            var bounds = GetBounds(points);
+            for (var j = bounds.MinY; j <= bounds.MaxY; j++)
+            {
+                var xLookup = points.Where(point => point.Y == j).ToLookup(point => point.X);
+                for (var i = bounds.MinX; i <= bounds.MaxX; i++)
+                {
+                    if (xLookup.Contains(i))
+                    {
+                        os.Write('*');
+                    }
+                    else
+                    {
+                        os.Write(' ');
+                    }
+                }
+                os.WriteNewLine();
+            }
         }
 
         private IEnumerable<(int X, int Y)> GetMinimumArea()

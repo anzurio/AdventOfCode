@@ -10,5 +10,10 @@ namespace AdventOfCode2018
         public abstract void Dispose();
         public abstract void Write(string s);
         public abstract void Write(char c);
+
+        internal void WriteNewLine()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

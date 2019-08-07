@@ -26,6 +26,11 @@ namespace AdventOfCode2018
             Console.Write(c);
         }
 
+        public override void Write(int i)
+        {
+            Console.Write(i);
+        }
+
         public override void WriteNewLine()
         {
             Console.WriteLine();

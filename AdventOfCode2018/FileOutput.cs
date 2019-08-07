@@ -50,5 +50,10 @@ namespace AdventOfCode2018
         {
             Writer.WriteLine();
         }
+
+        public override void Write(int i)
+        {
+            Writer.Write(i);
+        }
     }
 }

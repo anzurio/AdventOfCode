@@ -25,14 +25,15 @@ namespace AdventOfCode2018.Day10
 
         public void Solve(OutputStream os)
         {
-            var minimumNightSky = GetMinimumArea();
+            int dt;
+            var minimumNightSky = GetMinimumArea(out dt);
             using (var openedStream = os.Open())
             {
-                Print(openedStream, minimumNightSky);
+                Print(openedStream, minimumNightSky, dt);
             }
         }
 
-        private void Print(OutputStream os, IEnumerable<(int X, int Y)> points)
+        private void Print(OutputStream os, IEnumerable<(int X, int Y)> points, int dt)
         {
             var bounds = GetBounds(points);
             for (var j = bounds.MinY; j <= bounds.MaxY; j++)
@@ -51,17 +52,18 @@ namespace AdventOfCode2018.Day10
                 }
                 os.WriteNewLine();
             }
+            os.Write(dt);
         }
 
-        private IEnumerable<(int X, int Y)> GetMinimumArea()
+        private IEnumerable<(int X, int Y)> GetMinimumArea(out int dt)
         {
-            int dt = 0;
+            dt = 0;
             var currentNightSky = NightSky[dt];
             var currentArea = GetArea(currentNightSky);
             // FIX Potential infinite loop
             while (true)
             {
-                var nextNightSky = NightSky[++dt];
+                var nextNightSky = NightSky[dt + 1];
                 var nextArea = GetArea(nextNightSky);
                 // FIX If T+1 instead of decreasing, increases, this will return the first one.
                 if (nextArea > currentArea)
@@ -72,6 +74,7 @@ namespace AdventOfCode2018.Day10
                 {
                     currentNightSky = nextNightSky;
                     currentArea = nextArea;
+                    dt++;
                 }
             }
         }

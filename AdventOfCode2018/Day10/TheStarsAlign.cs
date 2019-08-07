@@ -76,11 +76,11 @@ namespace AdventOfCode2018.Day10
             }
         }
 
-        private int GetArea(IEnumerable<(int X, int Y)> points)
+        private long GetArea(IEnumerable<(int X, int Y)> points)
         {
             var (minX, minY, maxX, maxY) = GetBounds(points);
 
-            return (minX - maxX + 1) * (minY - maxY + 1);
+            return ((long)maxX - (long)minX + 1) * ((long)maxY - (long)minY + 1);
         }
 
         private (int MinX, int MinY, int MaxX, int MaxY) GetBounds(IEnumerable<(int X, int Y)> points)

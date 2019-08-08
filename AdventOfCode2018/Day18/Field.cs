@@ -9,8 +9,9 @@ namespace AdventOfCode2018.Day18
     public class Field
     {
         private Dictionary<int, Field> FieldsThroughTime { get; set; } = new Dictionary<int, Field>();
-        private Dictionary<string, int> FieldHashesThroughTime { get; set; } = new Dictionary<string, int>();
+        private Dictionary<int, int> FieldHashesThroughTime { get; set; } = new Dictionary<int, int>();
 
+        private int? Cycle { get; set; }
         private int SideSize { get; set; }
         private char[,] Acres { get; set; }
         internal const char OpenGround = '.';
@@ -22,7 +23,7 @@ namespace AdventOfCode2018.Day18
             Acres = acres;
             SideSize = sideSize;
             FieldsThroughTime[0] = this;
-            FieldHashesThroughTime[ToString()] = 0;
+            FieldHashesThroughTime[GetHashCode()] = 0;
         }
 
         public int ResourceValue
@@ -46,9 +47,6 @@ namespace AdventOfCode2018.Day18
             }
         }
 
-        public char this[int x,int y] => Acres[x, y];
-        
-
         public Field this[int minute]
         {
             get
@@ -59,18 +57,38 @@ namespace AdventOfCode2018.Day18
                 {
                     return FieldsThroughTime[minute];
                 }
+                if (Cycle != null)
+                {
+                    if (minute >= Cycle.Value)
+                    {
+                        var offset = (minute - Cycle.Value) % (FieldsThroughTime.Count - Cycle.Value);
+                        return FieldsThroughTime[Cycle.Value + offset];
+                    }
+                }
                 for (int i = 0; i < minute; i++)
                 {
                     if (!FieldsThroughTime.ContainsKey(i + 1))
                     {
-                        FieldsThroughTime[i + 1] = FieldsThroughTime[i].Step();
+                        var nextField = FieldsThroughTime[i].Step();
+                        var nextFieldHash = nextField.GetHashCode();
+                        if (FieldHashesThroughTime.ContainsKey(nextFieldHash))
+                        {
+                            var cycleStartIndex = FieldHashesThroughTime[nextFieldHash];
+                            Cycle = cycleStartIndex;
+                            return this[minute];
+                        }
+                        else
+                        {
+                            FieldsThroughTime[i + 1] = nextField;
+                            FieldHashesThroughTime[nextField.GetHashCode()] = i + 1;
+                        }
                     }
                 }
                 return FieldsThroughTime[minute];
             }
         }
         
-        public Field Step()
+        private Field Step()
         {
             var newField = new char[SideSize, SideSize];
 
@@ -121,7 +139,7 @@ namespace AdventOfCode2018.Day18
                         if (x + i >= 0 && x + i < SideSize &&
                             y + j >= 0 && y + j < SideSize)
                         {
-                            neighbors.Add(this[x + i, y + j]);
+                            neighbors.Add(Acres[x + i, y + j]);
                         }
                     }
                 }
@@ -138,6 +156,11 @@ namespace AdventOfCode2018.Day18
                 sb.Append(c);
             }
             return sb.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return ToString().GetHashCode();
         }
     }
 }

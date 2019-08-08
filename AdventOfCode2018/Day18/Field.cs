@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 
 namespace AdventOfCode2018.Day18
 {
     public class Field
     {
+        private Dictionary<int, Field> FieldsThroughTime { get; set; } = new Dictionary<int, Field>();
+        private Dictionary<string, int> FieldHashesThroughTime { get; set; } = new Dictionary<string, int>();
+
         private int SideSize { get; set; }
         private char[,] Acres { get; set; }
         internal const char OpenGround = '.';
         internal const char Trees = '|';
         internal const char Lumberyard = '#';
 
-        public Field(int sideSize)
+        public Field(int sideSize, char[,] acres)
         {
-            Acres = new char[sideSize, sideSize];
+            Acres = acres;
             SideSize = sideSize;
+            FieldsThroughTime[0] = this;
+            FieldHashesThroughTime[ToString()] = 0;
         }
 
         public int ResourceValue
@@ -40,30 +46,33 @@ namespace AdventOfCode2018.Day18
             }
         }
 
-        public char this[int x,int y]
-        {
-            get => Acres[x, y];
-
-            set => Acres[x, y] = value;
-        }
+        public char this[int x,int y] => Acres[x, y];
+        
 
         public Field this[int minute]
         {
             get
             {
                 Debug.Assert(minute >= 0, "Looking into the past is not supported.");
-                var field = this;
-                for (int i = 1; i <= minute; i++)
+                Debug.Assert(FieldsThroughTime.ContainsKey(0), "Initial Field should be set in the FieldsThroughTime");
+                if (FieldsThroughTime.ContainsKey(minute))
                 {
-                    field = field.Step();
+                    return FieldsThroughTime[minute];
                 }
-                return field;
+                for (int i = 0; i < minute; i++)
+                {
+                    if (!FieldsThroughTime.ContainsKey(i + 1))
+                    {
+                        FieldsThroughTime[i + 1] = FieldsThroughTime[i].Step();
+                    }
+                }
+                return FieldsThroughTime[minute];
             }
         }
         
         public Field Step()
         {
-            var newField = new Field(SideSize);
+            var newField = new char[SideSize, SideSize];
 
             for (int i = 0; i < SideSize; i++)
             {
@@ -97,7 +106,7 @@ namespace AdventOfCode2018.Day18
                 }
             }
 
-            return newField;
+            return new Field(SideSize, newField);
         }
 
         private List<char> GetNeighbors(int x, int y)
@@ -119,6 +128,16 @@ namespace AdventOfCode2018.Day18
             }
 
             return neighbors;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (char c in Acres)
+            {
+                sb.Append(c);
+            }
+            return sb.ToString();
         }
     }
 }

@@ -14,6 +14,10 @@ namespace AdventOfCode2018
             problem10.ParseInput(SampleInputs.TheStarsAlign);
             problem10.Solve(new ConsoleOutput());
 
+            var problem18 = new Day18.SettlersOfTheNorthPole();
+            problem18.ParseInput(SampleInputs.SettlersOfTheNorthPole);
+            problem18.Solve(new ConsoleOutput());
+
             Console.Read();
         }
     }

@@ -5,7 +5,7 @@ In this repository one can find my solutions to some [Advent of Code 2018](https
 To run it: 
 
 - One may open [the solution file](./AdventOfCode2018.sln) and run it from Visual Studio 
-- Open a CLI with access to `dotnet` on the directory holding the [project file](./AdventOfCode2018/AdventOfCode2018.sln) and execute:
+- Open a CLI with access to `dotnet` on the directory holding the [project file](./AdventOfCode2018/AdventOfCode2018.csproj) and execute:
 
 ```
 > dotnet run 

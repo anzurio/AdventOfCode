@@ -9,7 +9,6 @@ namespace AdventOfCode2018
         public override void Dispose()
         {
             WriteNewLine();
-            // No op
         }
 
         public override OutputStream Open()

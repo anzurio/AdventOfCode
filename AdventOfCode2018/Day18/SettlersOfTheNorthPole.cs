@@ -37,12 +37,9 @@ namespace AdventOfCode2018.Day18
 
         public void Solve(OutputStream os)
         {
-            using (var openedStream = os.Open())
-            {
-                os.Write(Field[10].ResourceValue);
-                os.WriteNewLine();
-                os.Write(Field[1000000000].ResourceValue);
-            }
+            os.Write(Field[10].ResourceValue);
+            os.WriteNewLine();
+            os.Write(Field[1000000000].ResourceValue);
         }
     }
 }

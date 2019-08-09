@@ -15,23 +15,23 @@ namespace AdventOfCode2018.Day03
             foreach (var line in inputStream)
             {
                 var match = regAutomaton.Match(line);
-                Fabric.Add(new Claim(
+                if (match.Success)
+                {
+                    Fabric.Add(new Claim(
                         int.Parse(match.Groups[1].Value),
                         int.Parse(match.Groups[2].Value),
                         int.Parse(match.Groups[3].Value),
                         int.Parse(match.Groups[4].Value),
                         int.Parse(match.Groups[5].Value)));
+                }
             }
         }
 
         public void Solve(OutputStream os)
         {
-            using (var openedStream = os.Open())
-            {
-                os.Write(Fabric.GetOverlappedSquareInches());
-                os.WriteNewLine();
-                os.Write(Fabric.GetUnoverlappingClaim());
-            }
+            os.Write(Fabric.GetOverlappedSquareInches());
+            os.WriteNewLine();
+            os.Write(Fabric.GetUnoverlappingClaim());
         }
     }
 }

@@ -15,11 +15,14 @@ namespace AdventOfCode2018.Day10
             foreach (var line in inputStream)
             {
                 var match = regAutomaton.Match(line);
-                NightSky.Add(new Star(
+                if (match.Success)
+                {
+                    NightSky.Add(new Star(
                         int.Parse(match.Groups[1].Value),
                         int.Parse(match.Groups[2].Value),
                         int.Parse(match.Groups[3].Value),
                         int.Parse(match.Groups[4].Value)));
+                }
             }
         }
 
@@ -27,10 +30,7 @@ namespace AdventOfCode2018.Day10
         {
             int dt;
             var minimumNightSky = GetMinimumArea(out dt);
-            using (var openedStream = os.Open())
-            {
-                Print(openedStream, minimumNightSky, dt);
-            }
+            Print(os, minimumNightSky, dt);
         }
 
         private void Print(OutputStream os, IEnumerable<(int X, int Y)> points, int dt)

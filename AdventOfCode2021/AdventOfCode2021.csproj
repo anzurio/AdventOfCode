@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="GiantSquid.in">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="HydrothermalVenture.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -5,3 +5,5 @@
 /.vs/AdventOfCode2018/v15
 /AdventOfCode2018/obj
 /AdventOfCode2018/bin/Debug/netcoreapp2.2
+/.vs/AdventOfCode/v16
+**/bin/**/net5.0

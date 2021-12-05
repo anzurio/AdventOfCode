@@ -37,9 +37,7 @@ namespace AdventOfCode
                 {
                     SolvePuzzles(output, puzzleSolversTypes);
                 }
-                output.Write("Press any key to exit.");
             }
-            Console.Read();
         }
 
         private static void SolvePuzzles(ConsoleOutput output, IEnumerable<Type> puzzleSolversTypes)

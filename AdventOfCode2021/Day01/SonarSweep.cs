@@ -9,11 +9,11 @@ namespace AdventOfCode2021.Day01
 {
     public class SonarSweep : ISolver
     {
-        private static List<int> Measurements = new List<int>();
+        private static int[] Measurements;
 
         public void ParseInput(IEnumerable<string> input)
         {
-            Measurements = input.Select(x => int.Parse(x)).ToList(); 
+            Measurements = input.Select(x => int.Parse(x)).ToArray(); 
         }
 
         public void Solve(OutputStream outputStream)
@@ -31,6 +31,19 @@ namespace AdventOfCode2021.Day01
 
 
             outputStream.Write(count - 1);
+            outputStream.WriteNewLine();
+            count = 0;
+            
+            for(int i = 0; i < Measurements.Length - 3; i++)
+            {
+                var previousWindow = Measurements[i] + Measurements[i + 1] + Measurements[i + 2];
+                var currentWindow = Measurements[i + 1] + Measurements[i + 2] + Measurements [i + 3];
+                if (currentWindow > previousWindow)
+                {
+                    count++;
+                }
+            }
+            outputStream.Write(count);
         }
     }
 }

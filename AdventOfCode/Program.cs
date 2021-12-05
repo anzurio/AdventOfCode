@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
-namespace AdventOfCode2018
+namespace AdventOfCode
 {
     class Program
     {
@@ -14,6 +15,14 @@ namespace AdventOfCode2018
         {
             using (var output = new ConsoleOutput())
             {
+                var assemblies = new List<Assembly>();
+                var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                var dlls = Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*.dll");
+                foreach (var dll in dlls)
+                {
+                    Assembly.LoadFrom(dll);
+                }
+
                 var puzzleSolversTypes = AppDomain.CurrentDomain
                         .GetAssemblies()
                         .SelectMany(assembly => assembly.GetTypes())

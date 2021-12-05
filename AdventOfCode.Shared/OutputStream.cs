@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AdventOfCode2018
+namespace AdventOfCode.Shared
 {
     public abstract class OutputStream : IDisposable
     {

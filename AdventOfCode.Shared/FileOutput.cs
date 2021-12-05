@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace AdventOfCode2018
+namespace AdventOfCode.Shared
 {
     public class FileOutput : OutputStream
     {

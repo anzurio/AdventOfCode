@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AdventOfCode2018
+namespace AdventOfCode.Shared
 {
     public abstract class InputStream : IEnumerable<string>
     {

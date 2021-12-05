@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdventOfCode.Shared;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 

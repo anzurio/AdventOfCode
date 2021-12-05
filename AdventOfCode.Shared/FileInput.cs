@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Linq;
 
-namespace AdventOfCode2018
+namespace AdventOfCode.Shared
 {
     public class FileInput : InputStream
     {

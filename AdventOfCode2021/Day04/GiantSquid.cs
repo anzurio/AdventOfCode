@@ -31,9 +31,12 @@ namespace AdventOfCode2021.Day04
 
         public void Solve(OutputStream outputStream)
         {
-            var winningBoard = boards.OrderBy(x => x.WinningTurn).First();
-            outputStream.Write(winningBoard.Score);
+            var orderedWinningBoards = boards.OrderBy(x => x.WinningTurn);
+            var firstWinningBoard = orderedWinningBoards.First();
+            outputStream.Write(firstWinningBoard.Score);
             outputStream.WriteNewLine();
+            var lastWinningBoard = orderedWinningBoards.Last();
+            outputStream.Write(lastWinningBoard.Score);
         }
     }
 }

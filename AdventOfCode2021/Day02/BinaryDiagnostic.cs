@@ -24,13 +24,26 @@ namespace AdventOfCode2021.Day02
 
         public void Solve(OutputStream outputStream)
         {
-            var gamma = new List<char>();
-            var epsilon = new List<char>();
+            List<char> gamma, epsilon;
+            SolvePartOne(out gamma, out epsilon);
+            outputStream.Write(Convert(gamma.ToArray()) * Convert(epsilon.ToArray()));
+            outputStream.WriteNewLine();
+            List<char[]> o2RatingValues, co2rating;
+            SolvePartTwo(out o2RatingValues, out co2rating);
+
+            outputStream.Write(Convert(o2RatingValues.First().ToArray()) * Convert(co2rating.First().ToArray()));
+        }
+
+        
+        private void SolvePartOne(out List<char> gamma, out List<char> epsilon)
+        {
+            gamma = new List<char>();
+            epsilon = new List<char>();
             for (int j = 0; j < values[0].Length; j++)
             {
                 var onesCount = 0;
                 var zerosCount = 0;
-                
+
                 for (int i = 0; i < values.Length; i++)
                 {
                     if (values[i][j] == '0')
@@ -53,8 +66,6 @@ namespace AdventOfCode2021.Day02
                     epsilon.Add('0');
                 }
             }
-            outputStream.Write(Convert(gamma.ToArray()) * Convert(epsilon.ToArray()));
-
         }
 
         private int Convert(char[] rate)
@@ -68,6 +79,73 @@ namespace AdventOfCode2021.Day02
             }
 
             return returnValue;
+        }
+
+        private void SolvePartTwo(out List<char[]> o2RatingValues, out List<char[]> co2rating)
+        {
+            o2RatingValues = values.ToList();
+            while (o2RatingValues.Count > 1)
+            {
+                for (int j = 0; j < o2RatingValues[0].Length; j++)
+                {
+                    var onesCount = 0;
+                    var zerosCount = 0;
+
+                    for (int i = 0; i < o2RatingValues.Count(); i++)
+                    {
+                        if (o2RatingValues[i][j] == '0')
+                        {
+                            zerosCount++;
+                        }
+                        else
+                        {
+                            onesCount++;
+                        }
+                    }
+                    if (onesCount >= zerosCount)
+                    {
+                        o2RatingValues = o2RatingValues.Where(x => x[j] == '1').ToList();
+                    }
+                    else
+                    {
+                        o2RatingValues = o2RatingValues.Where(x => x[j] == '0').ToList();
+                    }
+                    if (o2RatingValues.Count == 1) break;
+                }
+
+
+            }
+
+            co2rating = values.ToList();
+            while (co2rating.Count > 1)
+            {
+                for (int j = 0; j < co2rating[0].Length; j++)
+                {
+                    var onesCount = 0;
+                    var zerosCount = 0;
+
+                    for (int i = 0; i < co2rating.Count(); i++)
+                    {
+                        if (co2rating[i][j] == '0')
+                        {
+                            zerosCount++;
+                        }
+                        else
+                        {
+                            onesCount++;
+                        }
+                    }
+                    if (onesCount >= zerosCount)
+                    {
+                        co2rating = co2rating.Where(x => x[j] == '0').ToList();
+                    }
+                    else
+                    {
+                        co2rating = co2rating.Where(x => x[j] == '1').ToList();
+                    }
+                    if (co2rating.Count == 1) break;
+                }
+            }
         }
     }
 }

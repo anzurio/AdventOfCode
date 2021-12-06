@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="BinaryDiagnostic.in">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Dive.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
